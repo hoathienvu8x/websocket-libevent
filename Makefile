@@ -1,3 +1,4 @@
+$(shell sh build.sh 1>&2)
 ver = debug
 
 
@@ -24,8 +25,8 @@ BIN = chat_release
 endif
 
 
-INCLUDE = -I../
-LIBRARY = -levent -lcrypto -lssl -lrt \
+INCLUDE = -I./deps/libevent-2.1.12-stable -I./deps/libevent-2.1.12-stable/include -I./deps/libevent-2.1.12-stable/compact
+LIBRARY = ./deps/libevent-2.1.12-stable/.libs/libevent.a -lcrypto -lssl -lrt \
 		  -Wl,-rpath /usr/local/lib
 
 
@@ -54,4 +55,3 @@ tmp: $(OBJS)
 	cp -f $(LWS_INCLUDE) libwebsocket/include
 	ar cr $(LWS_LIB) $(LWS_LIB_OBJS)
 	mv -f $(LWS_LIB) libwebsocket/lib
-	\cp -r libwebsocket/* ../bin2http_websocket/libwebsocket
